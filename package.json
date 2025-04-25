@@ -1,0 +1,16 @@
+{
+  "devDependencies": {
+    "@types/node": "^22.15.2",
+    "typescript": "^5.8.3"
+  },
+  "scripts": {
+    "build": "tsc",
+    "start": "npm run build && node dist/indexer.js",
+    "index": "node dist/indexer.js",
+    "download": "node dist/downloader.js"
+  },
+  "dependencies": {
+    "dayjs": "^1.11.13",
+    "fs": "^0.0.1-security"
+  }
+}
