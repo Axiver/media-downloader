@@ -2,7 +2,7 @@
 import { AxiosError } from "axios";
 import { downloadFile } from "./fileHandler";
 import log from "./logger";
-const base_url = "https://web.archive.org/web/20230822120601im_/https://thumbs.gfycat.com/{identifier}-mobile.mp4";
+export const gfy_archive_base_url = "https://web.archive.org/web/20230822120601im_/https://thumbs.gfycat.com/{identifier}-mobile.mp4"; // We only access gfycat links through the internet archive as the original site is down
 
 // Converts the url to a internet archived url
 const convertUrl = async (url: string) => {
@@ -13,7 +13,7 @@ const convertUrl = async (url: string) => {
   const identifier = path.split("-")[0];
 
   // Construct the url
-  const convertedUrl = base_url.replace("{identifier}", identifier);
+  const convertedUrl = gfy_archive_base_url.replace("{identifier}", identifier);
 
   // Return the converted url
   return convertedUrl;

@@ -6,7 +6,7 @@
   "scripts": {
     "build": "tsc",
     "start": "npm run build",
-    "test": "mocha -r ts-node/register \"test/**/*.test.ts\""
+    "test": "mocha -r tsconfig-paths/register -r ts-node/register \"test/**/*.test.ts\""
   },
   "directories": {
     "src": "src",
@@ -33,10 +33,15 @@
   },
   "homepage": "https://github.com/Axiver/media-downloader#readme",
   "devDependencies": {
+    "@types/chai": "^5.2.1",
     "@types/mocha": "^10.0.10",
     "@types/node": "^22.15.2",
+    "@types/sinon": "^17.0.4",
+    "chai": "^4.5.0",
     "mocha": "^11.1.0",
+    "sinon": "^20.0.0",
     "ts-node": "^10.9.2",
+    "tsconfig-paths": "^4.2.0",
     "typescript": "^5.8.3"
   },
   "dependencies": {
