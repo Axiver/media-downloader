@@ -1,10 +1,7 @@
 import { expect } from "chai";
 import fs from "fs/promises";
 import path from "path";
-import handleGifyModule from "@/libs/handleGify";
-
-// No stubbing here — real function
-const handleGify: typeof handleGifyModule = handleGifyModule as any;
+import handleGify from "@/libs/handleGify";
 
 describe("handleGify (integration)", () => {
   const url = "https://gfycat.com/candidnauticalgoosefish";
@@ -27,8 +24,6 @@ describe("handleGify (integration)", () => {
 
   it("should download and save the file correctly", async () => {
     const savedFilePath = await handleGify(url, savePath, fileName);
-
-    console.log({ savedFilePath });
 
     // Check that file exists
     const fileStat = await fs.stat(savedFilePath);

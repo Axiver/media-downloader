@@ -1,5 +1,6 @@
 import log from "./libs/logger";
 import handleGify from "./libs/handleGify";
+import handleImgur from "./libs/handleImgur";
 
 const path = "./downloads/";
 
@@ -9,7 +10,7 @@ type DownloadOptions = {
 };
 
 // Downloads media from various hosts
-const download = async (url: string, options: DownloadOptions) => {
+const download = async (url: string, options?: DownloadOptions) => {
   // Log the event
   log({
     processName: "Downloader",
@@ -27,18 +28,19 @@ const download = async (url: string, options: DownloadOptions) => {
     switch (domain) {
       case "gfycat.com":
         // Download the video
-        file = await handleGify(url, path, options.fileName);
+        file = await handleGify(url, path, options?.fileName);
+        break;
+      case "i.imgur.com":
+        file = await handleImgur(url, path, options?.fileName);
         break;
       default:
-        // Log the event
-        log({
-          processName: "Downloader",
-          event: "WARN",
-          message: `Unsupported domain: ${domain}. Skipping...`,
-          print: true,
-        });
-        break;
+        // Throw an error for unsupported domain
+        throw new Error(`Unsupported domain: ${domain}`);
     }
+
+    // File downloaded successfully
+    // Return the file path
+    return file;
   } catch (error) {
     // Log the event
     log({
@@ -60,7 +62,7 @@ const download = async (url: string, options: DownloadOptions) => {
     });
 
     // Attempt to retry the download if there are retries left
-    if (options.retries && options.retries > 0) {
+    if (options?.retries && options.retries > 0) {
       // Log the event
       log({
         processName: "Downloader",
