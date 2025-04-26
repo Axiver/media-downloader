@@ -1,13 +1,43 @@
 {
-  "devDependencies": {
-    "@types/node": "^22.15.2",
-    "typescript": "^5.8.3"
-  },
+  "name": "media-downloader",
+  "description": "A simple and modular media downloader for Node",
+  "version": "1.0.0",
+  "main": "dist/index.js",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && node dist/indexer.js",
-    "index": "node dist/indexer.js",
-    "download": "node dist/downloader.js"
+    "start": "npm run build",
+    "test": "mocha -r ts-node/register \"test/**/*.test.ts\""
+  },
+  "directories": {
+    "src": "src",
+    "test": "test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Axiver/media-downloader.git"
+  },
+  "keywords": [
+    "media",
+    "image",
+    "video",
+    "picture",
+    "web",
+    "gif",
+    "download",
+    "downloader"
+  ],
+  "author": "Axiver",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Axiver/media-downloader/issues"
+  },
+  "homepage": "https://github.com/Axiver/media-downloader#readme",
+  "devDependencies": {
+    "@types/mocha": "^10.0.10",
+    "@types/node": "^22.15.2",
+    "mocha": "^11.1.0",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.8.3"
   },
   "dependencies": {
     "axios": "^1.9.0",
