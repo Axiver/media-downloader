@@ -41,7 +41,6 @@ const handleGify = async (url: string, path: string, _fileName?: string) => {
       processName: "Downloader",
       event: "INFO",
       message: `Downloading resource from ${convertedUrl}...`,
-      print: true,
     });
 
     // Download the file
@@ -65,12 +64,11 @@ const handleGify = async (url: string, path: string, _fileName?: string) => {
         processName: "Downloader",
         event: "ERROR",
         message: `ECONNREFUSED encountered while downloading resource from: ${convertedUrl}. Retrying in ${retryTimeout} seconds`,
-        print: true,
       });
 
       // Wait for the timeout before retrying
       setTimeout(async () => {
-        await handleGify(url, path, fileName);
+        await handleGify(url, path, _fileName);
         resolve(fullPath);
       }, retryTimeout * 1000);
     }
