@@ -47,39 +47,33 @@ const handleGify = async (url: string, path: string, _fileName?: string) => {
     // Download the file
     try {
       await downloadFile(convertedUrl, fullPath);
+      resolve(fullPath);
     } catch (error) {
-      // Check if it is an AxiosError
-      if (error instanceof AxiosError) {
-        // Check if the error is ECONNREFUSED
-        if (error.message.includes("ECONNREFUSED")) {
-          // Wait for a while and retry as ECONNREFUSED means that we are being rate limited
-          // Randomly select a timeout between 4 and 10 seconds
-          const retryTimeout = Math.floor(Math.random() * 5) + 1;
-
-          // Log the event
-          log({
-            processName: "Downloader",
-            event: "ERROR",
-            message: `ECONNREFUSED encountered while downloading resource from: ${convertedUrl}. Retrying in ${retryTimeout} seconds`,
-            print: true,
-          });
-
-          // Wait for the timeout
-          await new Promise((resolve, reject) => {
-            setTimeout(async () => {
-              await handleGify(url, path, fileName);
-              resolve(fullPath);
-            }, retryTimeout * 1000);
-          });
-
-          resolve(fullPath);
-        }
+      // Check if it is not an AxiosError or it failed for something other than ECONNREFUSED
+      if (!(error instanceof AxiosError) || !error.message.includes("ECONNREFUSED")) {
+        // Reject the promise
+        reject(error);
       }
 
-      reject(error);
-    }
+      // This is an ECONNREFUSED AxiosError
+      // Wait for a while and retry as ECONNREFUSED means that we are being rate limited
+      // Randomly select a timeout between 4 and 10 seconds
+      const retryTimeout = Math.floor(Math.random() * 5) + 1;
 
-    resolve(fullPath);
+      // Log the event
+      log({
+        processName: "Downloader",
+        event: "ERROR",
+        message: `ECONNREFUSED encountered while downloading resource from: ${convertedUrl}. Retrying in ${retryTimeout} seconds`,
+        print: true,
+      });
+
+      // Wait for the timeout before retrying
+      setTimeout(async () => {
+        await handleGify(url, path, fileName);
+        resolve(fullPath);
+      }, retryTimeout * 1000);
+    }
   });
 };
 
