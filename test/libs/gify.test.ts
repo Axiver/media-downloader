@@ -7,7 +7,7 @@ import * as logger from "@/libs/logger";
 
 const handleGify: typeof handleGifyModule = handleGifyModule as any;
 
-describe("handleGify", () => {
+describe("handleGify (unit)", () => {
   // Global stubs
   let downloadStub: sinon.SinonStub;
   let logStub: sinon.SinonStub;
