@@ -1,6 +1,7 @@
 // Import modules
 import fs from "fs";
 import dayjs from "dayjs";
+import type { LogEvent } from "@/types/LogTypes";
 
 // Global variables
 const logFile = fs.createWriteStream("./logs/log.txt", { flags: "a" });
