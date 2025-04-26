@@ -33,7 +33,7 @@ const handleGify = async (url: string, path: string, _fileName?: string) => {
 
     // Construct a filename (we use the last part of the path as the file name if not provided)
     // Gifycat links always end with a file name, so we can use that
-    const fileName = _fileName ? `${_fileName}.mp4` : `${path.split("/").pop()}.mp4`;
+    const fileName = _fileName ? `${_fileName}.mp4` : `${url.split("/").pop()}.mp4`;
     const fullPath = `${path}/${fileName}`;
 
     // Log the event
