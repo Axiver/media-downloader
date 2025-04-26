@@ -1,6 +1,5 @@
 // Import modules
-import fs, { createWriteStream } from "fs";
-import log from "./logger";
+import { createWriteStream } from "fs";
 // import proxies from "../proxies.json";
 
 // Initialise axios client
@@ -49,6 +48,9 @@ export async function downloadFile(fileUrl: string, outputLocationPath: string) 
     method: "get",
     url: fileUrl,
     responseType: "stream",
+    headers: {
+      "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3",
+    },
     // proxy,
   }).then((response) => {
     // ensure that the user can call `then()` only when the file has
