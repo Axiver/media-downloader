@@ -24,7 +24,7 @@ const download = async (url: string, options: DownloadOptions) => {
   // Handle the download depending on the host
   let file: string = "";
   try {
-    switch (url) {
+    switch (domain) {
       case "gfycat.com":
         // Download the video
         file = await handleGify(url, path, options.fileName);
