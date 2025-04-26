@@ -41,6 +41,11 @@ describe("handleGify (unit)", () => {
     expect(result).to.equal(`${savePath}/customName.mp4`);
   });
 
+  it("should derive a fileName from the identifier supplied if no file name is given", async () => {
+    const result = await handleGify(url, savePath);
+    expect(result).to.equal(`${savePath}/${identifier}.mp4`);
+  });
+
   it("should retry on ECONNREFUSED AxiosError", async () => {
     // Setup scenario to simulate ECONNREFUSED error
     const error = new AxiosError("connect ECONNREFUSED");
