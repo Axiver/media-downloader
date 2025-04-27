@@ -1,6 +1,7 @@
 import log from "./libs/logger";
 import handleGify from "./libs/handleGify";
 import handleImgur from "./libs/handleImgur";
+import handleReddit from "./libs/handleReddit";
 
 const path = "./downloads/";
 
@@ -32,6 +33,12 @@ const download = async (url: string, options?: DownloadOptions) => {
         break;
       case "i.imgur.com":
         file = await handleImgur(url, path, options?.fileName);
+        break;
+      case "i.redd.it":
+        file = await handleReddit(url, path, options?.fileName);
+        break;
+      case "v.redd.it":
+        file = await handleReddit(url, path, options?.fileName, true);
         break;
       default:
         // Throw an error for unsupported domain

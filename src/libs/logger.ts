@@ -8,7 +8,7 @@ const logFile = fs.createWriteStream("./logs/log.txt", { flags: "a" });
 
 //-- Functions --//
 // Gets the current timestamp
-function getTimestamp() {
+export function getTimestamp() {
   var format = "DD-MM-YYYY HH:mm:ss";
   let currTime = Date.now();
   let result = dayjs(currTime).format(format);
