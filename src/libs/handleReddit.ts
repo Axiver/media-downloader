@@ -143,16 +143,7 @@ const handleReddit = async (url: string, path: string, _fileName?: string, isVid
     });
 
     // Download the file
-    try {
-      await downloadFile(url, fullPath);
-    } catch (error) {
-      // Unable to download the file
-      reject(error);
-      return;
-    }
-
-    resolve(fullPath);
-    return;
+    await downloadFile(url, fullPath);
   });
 };
 

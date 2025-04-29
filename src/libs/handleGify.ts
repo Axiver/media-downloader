@@ -1,5 +1,4 @@
 // -- Constants --//
-import { AxiosError } from "axios";
 import { downloadFile } from "./fileHandler";
 import log from "./logger";
 export const gfy_archive_base_url = "https://web.archive.org/web/20230822120601im_/https://thumbs.gfycat.com/{identifier}-mobile.mp4"; // We only access gfycat links through the internet archive as the original site is down
@@ -44,34 +43,8 @@ const handleGify = async (url: string, path: string, _fileName?: string) => {
     });
 
     // Download the file
-    try {
-      await downloadFile(convertedUrl, fullPath);
-      resolve(fullPath);
-    } catch (error) {
-      // Check if it is not an AxiosError or it failed for something other than ECONNREFUSED
-      if (!(error instanceof AxiosError) || !error.message.includes("ECONNREFUSED")) {
-        // Reject the promise
-        reject(error);
-      }
-
-      // This is an ECONNREFUSED AxiosError
-      // Wait for a while and retry as ECONNREFUSED means that we are being rate limited
-      // Randomly select a timeout between 4 and 10 seconds
-      const retryTimeout = Math.floor(Math.random() * 5) + 1;
-
-      // Log the event
-      log({
-        processName: "Downloader",
-        event: "ERROR",
-        message: `ECONNREFUSED encountered while downloading resource from: ${convertedUrl}. Retrying in ${retryTimeout} seconds`,
-      });
-
-      // Wait for the timeout before retrying
-      setTimeout(async () => {
-        await handleGify(url, path, _fileName);
-        resolve(fullPath);
-      }, retryTimeout * 1000);
-    }
+    await downloadFile(convertedUrl, fullPath);
+    resolve(fullPath);
   });
 };
 
