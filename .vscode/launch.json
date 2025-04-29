@@ -11,8 +11,6 @@
         "tsconfig-paths/register",
         "-r",
         "ts-node/register",
-        "--timeout",
-        "999999",
         "--colors",
         "${workspaceFolder}/test/**/*.test.ts"
       ],
