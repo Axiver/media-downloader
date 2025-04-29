@@ -4,7 +4,7 @@ import { downloadFile } from "@/libs/fileHandler";
 import axios, { AxiosError } from "axios";
 import * as logger from "@/libs/logger";
 
-describe("fileHandler (unit) - Error Handling", () => {
+describe("downloadFile (unit)", () => {
   let axiosStub: sinon.SinonStub;
   let logStub: sinon.SinonStub;
 
