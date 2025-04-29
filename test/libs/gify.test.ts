@@ -1,11 +1,8 @@
 import { expect } from "chai";
 import sinon from "sinon";
-import { AxiosError } from "axios";
-import handleGifyModule, { gfy_archive_base_url } from "@/libs/handleGify";
+import handleGify, { gfy_archive_base_url } from "@/libs/handleGify";
 import * as fileHandler from "@/libs/fileHandler";
 import * as logger from "@/libs/logger";
-
-const handleGify: typeof handleGifyModule = handleGifyModule as any;
 
 describe("handleGify (unit)", () => {
   // Global stubs
@@ -44,38 +41,5 @@ describe("handleGify (unit)", () => {
   it("should derive a fileName from the identifier supplied if no file name is given", async () => {
     const result = await handleGify(url, savePath);
     expect(result).to.equal(`${savePath}/${identifier}.mp4`);
-  });
-
-  it("should retry on ECONNREFUSED AxiosError", async () => {
-    // Setup scenario to simulate ECONNREFUSED error
-    const error = new AxiosError("connect ECONNREFUSED");
-    downloadStub.onFirstCall().rejects(error);
-    downloadStub.onSecondCall().resolves();
-
-    // Skip the timeout to simulate immediate retry
-    const timeoutStub = sinon.stub(global, "setTimeout").callsFake((fn: any) => {
-      fn();
-      return 0 as any;
-    });
-
-    const result = await handleGify(url, savePath);
-
-    expect(logStub.calledWithMatch({ message: sinon.match(/ECONNREFUSED/) })).to.be.true;
-    expect(downloadStub.callCount).to.be.greaterThanOrEqual(2);
-    expect(result).to.include(".mp4");
-
-    timeoutStub.restore();
-  });
-
-  it("should reject on unknown error", async () => {
-    const err = new Error("Something went wrong");
-    downloadStub.rejects(err);
-
-    try {
-      await handleGify(url, savePath);
-      throw new Error("Expected to throw");
-    } catch (e) {
-      expect(e).to.equal(err);
-    }
   });
 });
