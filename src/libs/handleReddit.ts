@@ -202,8 +202,6 @@ const handleReddit = async (_url: string, path: string, _fileName?: string) => {
       message: `Downloading resource from ${url}...`,
     });
 
-    console.log({fileName, _url, url, fullPath})
-
     // Download the file
     await downloadFile(url, fullPath);
     resolve(fullPath);
