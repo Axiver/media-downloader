@@ -3,8 +3,9 @@ import { createWriteStream } from "fs";
 // import proxies from "../proxies.json";
 
 // Initialise axios client
-import axios, { AxiosError, AxiosResponse } from "axios";
+import axios, { AxiosError } from "axios";
 import log from "./logger";
+import { purgeSpecialChars } from "./stringUtils";
 
 // Obtains a proxy
 // function getProxy() {
@@ -18,23 +19,6 @@ import log from "./logger";
 //   // Return the proxy
 //   return { host, port };
 // }
-
-/**
- * Removes special characters from a string
- * @param {string} string A string to remove the special characters of
- * @returns A string without special characters
- */
-function purgeSpecialChars(string: string) {
-  //Define the replacement for each special character
-  const specialCharacters = [/\?/g, /\</g, /\>/g, /\"/g, /\*/g, /\:/g];
-
-  //Remove special characters
-  for (let i = 0; i < specialCharacters.length; i++) {
-    string = string.replace(specialCharacters[i], "");
-  }
-
-  return string;
-}
 
 /**
  * Fetches a resource file
