@@ -26,8 +26,10 @@ describe("downloader (integration)", () => {
     { domain: "gfycat.com", url: "https://gfycat.com/candidnauticalgoosefish" },
     { domain: "i.imgur.com (mp4)", url: "https://i.imgur.com/LeTD6AH.mp4" },
     { domain: "i.imgur.com (jpeg)", url: "https://i.imgur.com/7iLQKWX.jpeg" },
-    { domain: "v.redd.it (mp4)", url: "https://i.redd.it/5mhq1mywwpxe1.jpeg" },
-    { domain: "i.redd.it (jpeg)", url: "https://v.redd.it/fddjb3p4wbw81" },
+    { domain: "v.redd.it (mp4)", url: "https://v.redd.it/fddjb3p4wbw81" },
+    { domain: "i.redd.it (jpeg)", url: "https://i.redd.it/5mhq1mywwpxe1.jpeg" },
+    { domain: "reddit.com (mp4)", url: "https://www.reddit.com/r/CatGifs/comments/ue490c/i_thought_it_was_his_shadow_at_first/" },
+    { domain: "reddit.com (jpeg)", url: "https://www.reddit.com/r/ProgrammerHumor/comments/1kahbqb/hugerespect/" },
   ];
 
   // Iterate through each test case
